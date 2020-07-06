@@ -1,5 +1,10 @@
 // initialize the map, and remove the zoom control
-var mymap = L.map('map', {zoomControl: false}).setView([38.986036, -77.0332521], 12);
+var mymap = L.map('map', {
+    zoomControl: false
+}).setView([38.986036, -77.0332521], 12);
+
+// display the coordinate system code on the console
+console.log("map crs: " + mymap.options.crs.code);
 
 // add tile layer with OSM tiles: https://switch2osm.org/using-tiles/getting-started-with-leaflet/
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -7,7 +12,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(mymap);
 
+// for some reason, geojson features from a local external file are not working
+var testFeature = {
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.0357894897461, 38.89023115500578]
+        }
+    }]
+};
+
 // add layer for Purple Line corridor boundary
+L.geoJSON(testFeature).addTo(mymap);
 
 // add layer for Purple Line
 
@@ -36,10 +55,10 @@ function toggleQueryInsert() {
         displayInsert.removeAttribute("active");
         displayAnalysis.removeAttribute("active");
     };
-    
-    if (displayInsert.checked){
+
+    if (displayInsert.checked) {
         // set the form div display property
-        insertDiv.style.display= "block";
+        insertDiv.style.display = "block";
         queryDiv.style.display = "none";
         analysisDiv.style.display = "none";
         // set the active button
@@ -49,10 +68,10 @@ function toggleQueryInsert() {
 
     };
 
-    if (displayAnalysis.checked){
+    if (displayAnalysis.checked) {
         // set the form div display property
         analysisDiv.style.display = "block";
-        insertDiv.style.display= "none";
+        insertDiv.style.display = "none";
         queryDiv.style.display = "none";
         // set the active button
         displayAnalysis.setAttribute("active", "active");
