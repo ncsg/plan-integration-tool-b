@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"> 
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+
+<title>Purple Line</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+
+<link rel="stylesheet" href="./css/main.css">
+
+<!-- JavaScript libraries (custom are at the bottom)-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+</head>
+<body>
+    <div id="map"></div>
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-3 mb-4 ml-3 p-4 bg-dark text-light" id="left-panel">
+
+                    <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+                        <label class="btn btn-light active">
+                            <input type="radio" name="toggle" id="displayQuery" onclick="toggleQueryInsert()" checked> Query
+                        </label>
+                        <label class="btn btn-light">
+                            <input type="radio" name="toggle" id="displayInsert" onclick="toggleQueryInsert()"> Insert
+                        </label>
+                        <label class="btn btn-light">
+                            <input type="radio" name="toggle" id="displayAnalysis" onclick="toggleQueryInsert()"> Analysis
+                        </label>
+                    </div>
+
+                    <div id="queryDiv" style="display: block;">
+                        <form method="POST" action="" id="">
+                            <div class="form-group">
+                                <label for="table">Select a table: </label>
+                                <select class="form-control" name="table" id="table-query">
+                                    <option value="table">Select a table</option>
+                                    <option value="action">Action</option>
+                                    <option value="vision">Vision</option>
+                                    <option value="goal">Goal</option>
+                                    <option value="intent">Intent</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Select one or more columns: </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="column1" id="column1">
+                                    <label class="form-check-label" for="column1">
+                                      Column 1 name
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="column2" id="column2">
+                                    <label class="form-check-label" for="column2">
+                                      Column 2 name
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Select an operator: </label>
+                            </div>
+                            <input class="form-control btn btn-light" type="submit">
+                        </form>
+                    </div>
+
+                <div id="insertDiv" style="display: none;">
+                    <p>Are you planning a project in the Purple Line Corridor? Add the project to our database.</p>
+                    <form method="POST" action="" id="">
+                        <div class="form-group">
+                            <label for="table">Select a table: </label>
+                            <select name="table" class="form-control" id="table-insert">
+                                <option value="table">Select a table</option>
+                                <option value="action">Action</option>
+                                <option value="vision">Vision</option>
+                                <option value="goal">Goal</option>
+                                <option value="intent">Intent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p>Below are the fields for entries in the table you selected. Please fill out each field.</p>
+                            <input class="form-control mb-2" type="text" placeholder="Column #1 Data">
+                            <input class="form-control mb-2" type="text" placeholder="Column #2 Data">
+                        </div>
+                        <input class="form-control btn btn-light" type="submit">
+                    </form>
+                </div>
+
+                <div id="analysisDiv" style="display: none;">
+                    Hello world
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- custom JavaScript -->
+    <!-- "Make sure all the code is called after the div and leaflet.js inclusion." -->
+    <script src="./js/main.js"></script>
+
+</body>
+</html>
