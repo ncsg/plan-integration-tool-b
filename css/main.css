@@ -1,15 +1,15 @@
-html, body {
+html,
+body {
     height: 100%;
     padding: 0px;
     margin: 0px;
 }
 
-
 #map {
-position: fixed;
-top: 0;
-bottom: 0;
-width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 #left-panel {
@@ -22,4 +22,10 @@ width: 100%;
     overflow: auto;
 }
 
+a {
+    color: #800080;
+}
 
+#logo {
+    height: 75px;
+}

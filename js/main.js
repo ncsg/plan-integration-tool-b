@@ -1,7 +1,7 @@
 // initialize the map, and remove the zoom control
 var mymap = L.map('map', {
     zoomControl: false
-}).setView([38.986036, -77.0332521], 12);
+}).setView([38.9698612, -77.0876517], 12);
 
 // display the coordinate system code on the console
 console.log("map crs: " + mymap.options.crs.code);
@@ -12,71 +12,94 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(mymap);
 
-// for some reason, geojson features from a local external file are not working
-var testFeature = {
-    "type": "FeatureCollection",
-    "features": [{
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "type": "Point",
-            "coordinates": [-77.0357894897461, 38.89023115500578]
-        }
-    }]
+// style geojson features
+function style(feature) {
+    if (corridorFeature) {
+        return {
+            fillColor: '#800080',
+            weight: 4,
+            opacity: 1,
+            color: '#800080',
+            fillOpacity: 0.1
+        };
+    }
+    if (purpleLine) {
+        return {
+            color: '#800080',
+        };
+    }
+}
+// style geojson marker features
+var geojsonMarkerOptions = {
+    radius: 6,
+    fillColor: '#800080',
+    color: '#800080',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 1
 };
 
-// add layer for Purple Line corridor boundary
-L.geoJSON(testFeature).addTo(mymap);
+// add purple line stations to map
+L.geoJson(purpleLineStations, {
+    pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(mymap);
 
-// add layer for Purple Line
+
+// add purple line and corridor boundary to map
+L.geoJSON(purpleLine, { style: style }).addTo(mymap);
+L.geoJSON(corridorFeature, { style: style }).addTo(mymap);
 
 
 // function to toggle between the query and insert forms
 // could this be done more concisely with a for loop?
-function toggleQueryInsert() {
+function toggleFunction() {
 
     // assign variables for each form div
+    introDiv = document.getElementById("introDiv");
     queryDiv = document.getElementById("queryDiv");
-    insertDiv = document.getElementById("insertDiv");
     analysisDiv = document.getElementById("analysisDiv");
+
+
     // assign variables for each button
+    displayIntro = document.getElementById("displayIntro");
     displayQuery = document.getElementById("displayQuery");
-    displayInsert = document.getElementById("displayInsert");
     displayAnalysis = document.getElementById("displayAnalysis");
 
     // conditional checks which button button is checked
+    if (displayIntro.checked) {
+        // set the form div display property
+        introDiv.style.display = "block";
+        analysisDiv.style.display = "none";
+        queryDiv.style.display = "none";
+        // set the active button
+        displayIntro.setAttribute("active", "active");
+        displayAnalysis.removeAttribute("active");
+        displayQuery.removeAttribute("active");
+    };
+
+
     if (displayQuery.checked) {
         // set the form div display property
         queryDiv.style.display = "block";
-        insertDiv.style.display = "none";
         analysisDiv.style.display = "none";
+        introDiv.style.display = "none";
         // set the active button
         displayQuery.setAttribute("active", "active");
-        displayInsert.removeAttribute("active");
         displayAnalysis.removeAttribute("active");
-    };
-
-    if (displayInsert.checked) {
-        // set the form div display property
-        insertDiv.style.display = "block";
-        queryDiv.style.display = "none";
-        analysisDiv.style.display = "none";
-        // set the active button
-        displayInsert.setAttribute("active", "active");
-        displayQuery.removeAttribute("active");
-        displayAnalysis.removeAttribute("active");
-
+        displayIntro.removeAttribute("active");
     };
 
     if (displayAnalysis.checked) {
         // set the form div display property
         analysisDiv.style.display = "block";
-        insertDiv.style.display = "none";
         queryDiv.style.display = "none";
+        introDiv.style.display = "none";
         // set the active button
         displayAnalysis.setAttribute("active", "active");
         displayQuery.removeAttribute("active");
-        displayInsert.removeAttribute("active");
+        displayIntro.removeAttribute("active");
 
     };
 

@@ -26,21 +26,45 @@
     <div id="map"></div>
     <div class="container-sm">
         <div class="row">
-            <div class="col-3 mb-4 ml-3 p-4 bg-dark text-light" id="left-panel">
+            <div class="col-3 mb-4 ml-3 p-4 bg-light text-dark" id="left-panel">
 
                 <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                    <label class="btn btn-light active">
-                            <input type="radio" name="toggle" id="displayQuery" onclick="toggleQueryInsert()" checked> Query
-                        </label>
-                    <label class="btn btn-light">
-                            <input type="radio" name="toggle" id="displayInsert" onclick="toggleQueryInsert()"> Insert
-                        </label>
-                    <label class="btn btn-light">
-                            <input type="radio" name="toggle" id="displayAnalysis" onclick="toggleQueryInsert()"> Analyze
-                        </label>
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="toggle" id="displayIntro" onclick="toggleFunction()" checked> Intro
+                    </label>
+                    <label class="btn btn-secondary">
+                            <input type="radio" name="toggle" id="displayQuery" onclick="toggleFunction()"> Query
+                    </label>
+                    <label class="btn btn-secondary">
+                            <input type="radio" name="toggle" id="displayAnalysis" onclick="toggleFunction()"> Analyze
+                    </label>
                 </div>
 
-                <div id="queryDiv" style="display: block;">
+                <div></div>
+
+                <div id="introDiv" style="display: block;">
+                    <h5>Purple Line Plan Integration Tool</h5>
+                    <p>
+                        Welcome!
+                    </p>
+                    <p>
+                        Are you planning a project in the Purple Line Corridor? You can use this tool to explore what else is being planned around it.
+                    </p>
+                    <p>
+                        Behind this tool is a database of different plans. These plans may be big, small, certain, uncertain, grand visions, or nearly in the ground.
+                    </p>
+                    <p>
+                        We hope that, by having access to these plans, you'll be able to make better decisions about <b>your</b> plans.
+                    </p>
+                    <p>
+                        The Purple Line Plan Integration Tool is a project from the
+                        <a href="http://purplelinecorridor.org/" target="blank">Purple Line Corridor Coalition.</a>
+                    </p>
+                    <a href="http://purplelinecorridor.org/" target="blank"><img id="logo" src="./img/PLCC_logo.png" alt="Image of the Purple Line Corridor Coalition logo."></a>
+
+                </div>
+
+                <div id="queryDiv" style="display: none;">
                     <form method="POST" action="" id="">
                         <div class="form-group">
                             <label for="table">Select a table: </label>
@@ -74,36 +98,17 @@
                     </form>
                 </div>
 
-                <div id="insertDiv" style="display: none;">
-                    <p>Are you planning a project in the Purple Line Corridor? Add the project to our database.</p>
-                    <form method="POST" action="" id="">
-                        <div class="form-group">
-                            <label for="table">Select a table: </label>
-                            <select name="table" class="form-control" id="table-insert">
-                                <option value="table">Select a table</option>
-                                <option value="action">Action</option>
-                                <option value="vision">Vision</option>
-                                <option value="goal">Goal</option>
-                                <option value="intent">Intent</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <p>Below are the fields for entries in the table you selected. Please fill out each field.</p>
-                            <input class="form-control mb-2" type="text" placeholder="Column #1 Data">
-                            <input class="form-control mb-2" type="text" placeholder="Column #2 Data">
-                        </div>
-                        <input class="form-control btn btn-light" type="submit">
-                    </form>
-                </div>
                 <div id="analysisDiv" style="display: none;">
                     Hello world
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- custom JavaScript -->
     <!-- "Make sure all the code is called after the div and leaflet.js inclusion." -->
+    <script src="./js/corridor.js"></script>
     <script src="./js/main.js"></script>
 
 </body>
