@@ -2,17 +2,20 @@ CREATE DATABASE sop;
 
 CREATE EXTENSION postgis; 
 
+-- https://blog.yo1.dog/updating-enum-values-in-postgresql-the-safe-and-easy-way/
+-- remember to escape the apostrophe in Prince George's County
 CREATE TYPE county_md AS ENUM('Montgomery County', 
-                        'Prince Georges County', 'Both');
+                        'Prince George''s County', 'Both');
 
 CREATE TABLE plans (
     id BIGSERIAL, 
     title VARCHAR(150) NOT NULL,
     plan_type VARCHAR(150) NOT NULL,
     county county_md NOT NULL,
-    awc VARCHAR(150) NOT NULL,
+    awc VARCHAR(150) NOT NULL, -- authority?
+    plan_area VARCHAR(254) NOT NULL,
     year INT NOT NULL,
-    link TEXT NOT NULL,
+    link TEXT NOT NULL, -- url of the plan
     PRIMARY KEY (id)
 );
 
@@ -85,37 +88,21 @@ CREATE TABLE actions(
 UPDATE actions SET location = ST_POINT(longitude, latitude);
 
 
-
-
-
-
-
-
-
-
--- break point: everything before this point works
-
-
-
-
-
-
-
-
-
-
-
 -- must be created before visions table because the visions table has plans_boundaries(plan_id) as a foreign key
 -- also, in sop_dump.txt, it seems like this table is called boundaries, instead of plans_boundaries
 
 CREATE TABLE plans_boundaries(
+    id BIGSERIAL,
     plan_id INT NOT NULL,
-    boundary_id INT NOT NULL,
-    PRIMARY KEY (plan_id, boundary_id),
+    -- boundary_id INT NOT NULL,
+    geom GEOMETRY(POLYGON),
+    PRIMARY KEY (id),
     FOREIGN KEY (plan_id) REFERENCES plans(id) ON UPDATE CASCADE,
     -- unclear where the table boundaries_nad83_stateplane_md_meters would come from; this is throwing an error
     -- https://stackoverflow.com/questions/8595695/what-is-difference-between-foreign-key-and-reference-key
-    FOREIGN KEY (boundary_id) REFERENCES boundaries_nad83_stateplane_md_meters(gid) ON UPDATE CASCADE
+    -- according to Daniella, this table was renamed to land_use_plans in the geodatabase
+    -- but, land_use_plans has all the same fields as plans
+    -- FOREIGN KEY (boundary_id) REFERENCES boundaries_nad83_stateplane_md_meters(gid) ON UPDATE CASCADE
 );
 
 
@@ -126,11 +113,12 @@ CREATE TABLE visions (
     vision TEXT,
     PRIMARY KEY (id),
     plan_id INT NOT NULL,
+    boundary_id INT,
     FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE CASCADE,
     -- ON DELETE CASCADE because a vision statement cannot exist absent
     -- the plan that mentions it. If the plan is deleted from the
     -- database so are its corresponding vision statements. 
-    FOREIGN KEY (boundary_id) REFERENCES plans_boundaries(plan_id) ON DELETE SET NULL
+    FOREIGN KEY (boundary_id) REFERENCES plans_boundaries(id) ON DELETE SET NULL
     -- ON DELETE SET NULL because a vision statement can exist absent
     -- the plan boundary. A vision statement is spatially associated with
     -- a plan boundary but not dependent on it. Planner can alter/update a 
@@ -278,34 +266,6 @@ CREATE TABLE plans_actors (
 );
 
 
-
-
-
-CREATE TABLE actions(
-    id BIGSERIAL,
-    description TEXT NOT NULL,
-    action_type type_action NOT NULL,
-    dependency TEXT,
-    latitude FLOAT,
-    longitude FLOAT,
-    plan_id INT NOT NULL,
-    strategy_id INT,
-    asset VARCHAR(100),
-    category TEXT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE CASCADE,
-    -- ON DELETE CASCADE because an action cannot exist absent the
-    -- plan that mentions it. If the plan is deleted from the database
-    -- so are its corresponding actions. This realtionship is a
-    -- dependency.
-    FOREIGN KEY (strategy_id) REFERENCES strategies(id) ON DELETE SET NULL
-    -- ON DELETE SET NULL because the relationship between
-    -- a strategy and actions is an aggregation. Therefore, an
-    -- action can exist absent a specific strategy. If a strategy is deleted
-    -- or does not exist in the database an action can still exist
-    -- independently.
-);
-
 SELECT AddGeometryColumn('actions',
  'geom', 26985, 'POINT',2); 
 
@@ -313,15 +273,5 @@ UPDATE actions
  SET geom = ST_Transform(
  ST_GeomFromText('POINT(' || longitude || ' ' || latitude || ')',4326), 26985);
 
- SELECT * FROM plans
- INNER JOIN actions on plans.action_id = actions.id;
 
-
- CREATE TABLE plans_parcels (
-    plan_id INT NOT NULL,
-    parcel_id INT NOT NULL,
-    PRIMARY KEY (plan_id, parcel_id),
-    FOREIGN KEY (plan_id) REFERENCES plans(id) ON UPDATE CASCADE,
-    FOREIGN KEY (parcel_id) REFERENCES parcels(fid) ON UPDATE CASCADE
-);
 

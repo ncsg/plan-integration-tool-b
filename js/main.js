@@ -104,3 +104,55 @@ function toggleFunction() {
     };
 
 }
+
+var tableNames = ['plans'];
+var plansColumns = ['id', 'title', 'plan_type', 'county', 'awc', 'year', 'link', 'plan_area'];
+var visionColumns = ['id', 'vision', 'plan_id', 'boundary_id']
+
+// displays checkboxes with column names based on the table the user picks
+function displayColumns() {
+
+    // get the select list
+    var sel = document.getElementById("table-query");
+    // if the value of the selection is plans, assign the plansColumns to the columnsList variable
+    if (sel.value == 'plans') {
+        columnsList = plansColumns;
+    }
+
+    if (sel.value == 'vision') {
+        columnsList = visionColumns;
+    }
+
+    // need to find a way to limit the below behavior 
+
+
+    // get the div where the columns checkboxes will go
+    columnsElement = document.getElementById("columns");
+    columnsElement.innerHTML = ''
+
+    // initialize the variable for iterating through the column name array
+    var column;
+    // create a for-of loop to loop through the column names
+    for (column of columnsList) {
+        // create a wrapper div for the checkbox
+        var formCheck = document.createElement("div");
+        formCheck.className = "form-check";
+        // add the wrapper into the correct div as a child element
+        columnsElement.appendChild(formCheck);
+        // create an input element and set the correct attributes based on the column name
+        var input = document.createElement("input");
+        input.className = "form-check-input";
+        input.id = column
+        input.setAttribute("type", "checkbox");
+        input.setAttribute("value", column);
+        // create a label element and set the correct attributes based on the column name
+        var label = document.createElement("label");
+        label.className = "form-check-label";
+        label.setAttribute("for", column);
+        label.innerHTML = column;
+        // add the input and label elements as children of the wrapper
+        formCheck.appendChild(input);
+        formCheck.appendChild(label);
+    }
+
+}

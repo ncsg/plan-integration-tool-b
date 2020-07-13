@@ -68,33 +68,22 @@
                     <form method="POST" action="" id="">
                         <div class="form-group">
                             <label for="table">Select a table: </label>
-                            <select class="form-control" name="table" id="table-query">
+                            <select class="form-control" name="table" id="table-query" onclick="displayColumns()">
                                     <option value="table">Select a table</option>
+                                    <option value="plans">Plans</option>                              
                                     <option value="action">Action</option>
                                     <option value="vision">Vision</option>
                                     <option value="goal">Goal</option>
                                     <option value="intent">Intent</option>
                                 </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="columns">
                             <label for="">Select one or more columns: </label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="column1" id="column1">
-                                <label class="form-check-label" for="column1">
-                                      Column 1 name
-                                    </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="column2" id="column2">
-                                <label class="form-check-label" for="column2">
-                                      Column 2 name
-                                    </label>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Select an operator: </label>
                         </div>
-                        <input class="form-control btn btn-light" type="submit">
+                        <input class="form-control btn btn-secondary" type="submit">
                     </form>
                 </div>
 
