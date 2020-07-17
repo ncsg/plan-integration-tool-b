@@ -20,7 +20,7 @@ function style(feature) {
             weight: 4,
             opacity: 1,
             color: '#800080',
-            fillOpacity: 0.1
+            fillOpacity: 0.07
         };
     }
     if (purpleLine) {
@@ -105,21 +105,37 @@ function toggleFunction() {
 
 }
 
-var tableNames = ['plans'];
+
 var plansColumns = ['id', 'title', 'plan_type', 'county', 'awc', 'year', 'link', 'plan_area'];
 var visionColumns = ['id', 'vision', 'plan_id', 'boundary_id']
 
+// execute the displayColumns function if user changes table selection
+document.getElementById("table-query").onchange = displayColumns;
+
 // displays checkboxes with column names based on the table the user picks
+// and clears out columns from any previous picks
 function displayColumns() {
 
+    // create the XMLHttpRequest object
+    // var xhttp = new XMLHttpRequest();
+
+    // bind the FormData object to the table selection
+    // var formData = new FormData(document.getElementById("table-query"));
+
+
+
+
+    // process the results of the query into an array
+
+
     // get the select list
-    var sel = document.getElementById("table-query");
+    var selection = document.getElementById("table-query");
     // if the value of the selection is plans, assign the plansColumns to the columnsList variable
-    if (sel.value == 'plans') {
+    if (selection.value == 'plans') {
         columnsList = plansColumns;
     }
 
-    if (sel.value == 'vision') {
+    if (selection.value == 'vision') {
         columnsList = visionColumns;
     }
 

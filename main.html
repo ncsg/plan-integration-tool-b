@@ -30,17 +30,15 @@
 
                 <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
                     <label class="btn btn-secondary active">
-                        <input type="radio" name="toggle" id="displayIntro" onclick="toggleFunction()" checked> Intro
-                    </label>
+                            <input type="radio" name="toggle" id="displayIntro" onclick="toggleFunction()" checked> Intro
+                        </label>
                     <label class="btn btn-secondary">
-                            <input type="radio" name="toggle" id="displayQuery" onclick="toggleFunction()"> Query
-                    </label>
+                                <input type="radio" name="toggle" id="displayQuery" onclick="toggleFunction()"> Query
+                        </label>
                     <label class="btn btn-secondary">
-                            <input type="radio" name="toggle" id="displayAnalysis" onclick="toggleFunction()"> Analyze
-                    </label>
+                                <input type="radio" name="toggle" id="displayAnalysis" onclick="toggleFunction()"> Analyze
+                        </label>
                 </div>
-
-                <div></div>
 
                 <div id="introDiv" style="display: block;">
                     <h5>Purple Line Plan Integration Tool</h5>
@@ -54,11 +52,18 @@
                         Behind this tool is a database of different plans. These plans may be big, small, certain, uncertain, grand visions, or nearly in the ground.
                     </p>
                     <p>
-                        We hope that, by having access to these plans, you'll be able to make better decisions about <b>your</b> plans.
+                        With access to these plans you'll be able to make better decisions about <b>your</b> plans.
                     </p>
+
+                    <button class="btn btn-secondary btn-sm mb-3" style="display: inline-block;">Tour</button>
+                    <button class="btn btn-secondary btn-sm mb-3" style="display: inline-block;">Tutorial</button>
+                    <button class="btn btn-secondary btn-sm mb-3" style="display: inline-block;">Documentation</button>
+
+
                     <p>
                         The Purple Line Plan Integration Tool is a project from the
-                        <a href="http://purplelinecorridor.org/" target="blank">Purple Line Corridor Coalition.</a>
+                        <a href="http://purplelinecorridor.org/" target="blank">Purple Line Corridor Coalition.</a> To add your plans to the database,
+                        <a href="#">get in touch</a>.
                     </p>
                     <a href="http://purplelinecorridor.org/" target="blank"><img id="logo" src="./img/PLCC_logo.png" alt="Image of the Purple Line Corridor Coalition logo."></a>
 
@@ -68,7 +73,7 @@
                     <form method="POST" action="" id="">
                         <div class="form-group">
                             <label for="table">Select a table: </label>
-                            <select class="form-control" name="table" id="table-query" onclick="displayColumns()">
+                            <select class="form-control" name="table" id="table-query">
                                     <option value="table">Select a table</option>
                                     <option value="plans">Plans</option>                              
                                     <option value="action">Action</option>
@@ -86,7 +91,6 @@
                         <input class="form-control btn btn-secondary" type="submit">
                     </form>
                 </div>
-
                 <div id="analysisDiv" style="display: none;">
                     Hello world
                 </div>
