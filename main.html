@@ -27,7 +27,6 @@
     <div class="container-sm">
         <div class="row">
             <div class="col-3 mb-4 ml-3 p-4 bg-light text-dark" id="left-panel">
-
                 <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
                     <label class="btn btn-secondary active">
                             <input type="radio" name="toggle" id="displayIntro" onclick="toggleFunction()" checked> Intro
@@ -70,16 +69,21 @@
                 </div>
 
                 <div id="queryDiv" style="display: none;">
-                    <form method="POST" action="" id="">
+                    <form method="POST" action="#" enctype="multipart/form-data" id="form">
                         <div class="form-group">
                             <label for="table">Select a table: </label>
-                            <select class="form-control" name="table" id="table-query">
-                                    <option value="table">Select a table</option>
-                                    <option value="plans">Plans</option>                              
-                                    <option value="action">Action</option>
-                                    <option value="vision">Vision</option>
-                                    <option value="goal">Goal</option>
-                                    <option value="intent">Intent</option>
+                            <select class="form-control" name="table" id="table-query" onchange="db_request()">
+                                    <option value="table">Select a table</option>                            
+                                    <option value="actions">Actions</option>
+                                    <option value="actors">Actors</option>
+                                    <option value="capital_improvements">Capital Improvements</option>
+                                    <option value="conditions">Conditions</option>
+                                    <option value="goals">Goals</option>
+                                    <option value="intents">Intents</option>
+                                    <option value="parcels">Parcels</option>  
+                                    <option value="plans">Plans</option> 
+                                    <option value="strategies">Strategies</option>
+                                    <option value="visions">Visions</option>
                                 </select>
                         </div>
                         <div class="form-group" id="columns">
@@ -94,7 +98,6 @@
                 <div id="analysisDiv" style="display: none;">
                     Hello world
                 </div>
-
             </div>
         </div>
     </div>

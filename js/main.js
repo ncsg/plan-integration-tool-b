@@ -106,50 +106,54 @@ function toggleFunction() {
 }
 
 
-var plansColumns = ['id', 'title', 'plan_type', 'county', 'awc', 'year', 'link', 'plan_area'];
-var visionColumns = ['id', 'vision', 'plan_id', 'boundary_id']
-
-// execute the displayColumns function if user changes table selection
-document.getElementById("table-query").onchange = displayColumns;
 
 // displays checkboxes with column names based on the table the user picks
 // and clears out columns from any previous picks
-function displayColumns() {
+function db_request() {
 
-    // create the XMLHttpRequest object
-    // var xhttp = new XMLHttpRequest();
-
-    // bind the FormData object to the table selection
-    // var formData = new FormData(document.getElementById("table-query"));
-
-
-
-
-    // process the results of the query into an array
-
-
-    // get the select list
-    var selection = document.getElementById("table-query");
-    // if the value of the selection is plans, assign the plansColumns to the columnsList variable
-    if (selection.value == 'plans') {
-        columnsList = plansColumns;
-    }
-
-    if (selection.value == 'vision') {
-        columnsList = visionColumns;
-    }
-
-    // need to find a way to limit the below behavior 
-
-
-    // get the div where the columns checkboxes will go
+    // clear the columns from the previous selection
     columnsElement = document.getElementById("columns");
     columnsElement.innerHTML = ''
+
+    // create the XMLHttpRequest object
+    var xhttp = new XMLHttpRequest();
+
+    // bind the FormData object to the table selection
+    var formData = new FormData(document.getElementById("form"));
+
+    // process the results of the query into an array, and
+    // add the elements of the array as checkboxes
+    xhttp.addEventListener("load", function(event) {
+
+        console.log("Response text: " + event.target.responseText);
+        var columnsList = JSON.parse(event.target.responseText);
+        displayColumns(columnsList);
+
+    })
+
+    xhttp.addEventListener("error", function(event) {
+        console.log("Error text: " + event.target.responseText);
+    })
+
+    xhttp.open("POST", "./php/columns.php");
+    xhttp.send(formData);
+
+}
+
+
+function displayColumns(cols) {
+
+    console.log(cols);
+
+    // makes the rest not work for some reason
+    // var label = document.createElement("<label>");
+    // label.innerText = "Select on or more columns: ";
+    // columnsElement.appendChild(label);
 
     // initialize the variable for iterating through the column name array
     var column;
     // create a for-of loop to loop through the column names
-    for (column of columnsList) {
+    for (column of cols) {
         // create a wrapper div for the checkbox
         var formCheck = document.createElement("div");
         formCheck.className = "form-check";
@@ -158,14 +162,14 @@ function displayColumns() {
         // create an input element and set the correct attributes based on the column name
         var input = document.createElement("input");
         input.className = "form-check-input";
-        input.id = column
+        input.id = column[3]
         input.setAttribute("type", "checkbox");
-        input.setAttribute("value", column);
+        input.setAttribute("value", column[3]);
         // create a label element and set the correct attributes based on the column name
         var label = document.createElement("label");
         label.className = "form-check-label";
-        label.setAttribute("for", column);
-        label.innerHTML = column;
+        label.setAttribute("for", column[3]);
+        label.innerHTML = column[3];
         // add the input and label elements as children of the wrapper
         formCheck.appendChild(input);
         formCheck.appendChild(label);
