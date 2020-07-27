@@ -106,12 +106,12 @@ function toggleFunction() {
 }
 
 
-
-// displays checkboxes with column names based on the table the user picks
-// and clears out columns from any previous picks
+// when a user changes the table name in the select list, this function sends a request
+// to the database to get the column names for the selected table and display them as
+// checkboxes in the queryDiv
 function db_request() {
 
-    // clear the columns from the previous selection
+    // clear the columns from the previous table selection
     columnsElement = document.getElementById("columns");
     columnsElement.innerHTML = ''
 
@@ -121,58 +121,78 @@ function db_request() {
     // bind the FormData object to the table selection
     var formData = new FormData(document.getElementById("form"));
 
-    // process the results of the query into an array, and
-    // add the elements of the array as checkboxes
+    // if the request is successful, process the results of the query into an array, 
+    // and add the elements of the array as checkboxes to the queryDiv
     xhttp.addEventListener("load", function(event) {
 
         console.log("Response text: " + event.target.responseText);
         var columnsList = JSON.parse(event.target.responseText);
-        displayColumns(columnsList);
 
+        console.log(columnsList);
+
+        // initialize the variable for iterating through the column name array
+        var column;
+
+        // create a for-of loop to loop through the column names
+        for (column of columnsList) {
+            // create a wrapper div for the checkbox
+            var formCheck = document.createElement("div");
+            formCheck.className = "form-check";
+            // add the wrapper into the correct div as a child element
+            columnsElement.appendChild(formCheck);
+            // create an input element and set the correct attributes based on the column name
+            var input = document.createElement("input");
+            input.className = "form-check-input";
+            input.id = column[3]
+            input.setAttribute("type", "radio");
+            input.setAttribute("value", column[3]);
+            // create a label element and set the correct attributes based on the column name
+            var label = document.createElement("label");
+            label.className = "form-check-label";
+            label.setAttribute("for", column[3]);
+            label.innerHTML = column[3];
+            // add the input and label elements as children of the wrapper
+            formCheck.appendChild(input);
+            formCheck.appendChild(label);
+        }
     })
 
+    // if the request is unsuccessful, print error text to console, and an error message
+    // to the queryDiv
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
+        columnsElement.innerHTML = "<p>Oops! Looks like something went wrong.</p>";
     })
 
+    // send the request to postgres
     xhttp.open("POST", "./php/columns.php");
     xhttp.send(formData);
-
 }
 
+// add UI elements to add another portion to the query
+// function addQuery() {
+//     var queryBuiler = document.getElementById("query-builder");
 
-function displayColumns(cols) {
+//     var newQuerySection = document.createElement("div");
+//     var newTable = document.createElement("div");
+//     newTable.className = "form-group";
+//     var newLabel = document.createElement("label");
+//     newLabel.setAttribute("for", "table");
+//     var newSelect = document.createElement("select");
+//     newSelect.className = "form-control";
+//     // this is going to cause issues with post - two elements with name "table"
+//     newSelect.setAttribute("name", "table");
+//     newSelect.setAttribute("onchange", "db_request()");
 
-    console.log(cols);
 
-    // makes the rest not work for some reason
-    // var label = document.createElement("<label>");
-    // label.innerText = "Select on or more columns: ";
-    // columnsElement.appendChild(label);
+//     newTable.appendChild(newLabel);
+//     newTable.appendChild(newSelect);
+//     newQuerySection.appendChild(newTable);
 
-    // initialize the variable for iterating through the column name array
-    var column;
-    // create a for-of loop to loop through the column names
-    for (column of cols) {
-        // create a wrapper div for the checkbox
-        var formCheck = document.createElement("div");
-        formCheck.className = "form-check";
-        // add the wrapper into the correct div as a child element
-        columnsElement.appendChild(formCheck);
-        // create an input element and set the correct attributes based on the column name
-        var input = document.createElement("input");
-        input.className = "form-check-input";
-        input.id = column[3]
-        input.setAttribute("type", "checkbox");
-        input.setAttribute("value", column[3]);
-        // create a label element and set the correct attributes based on the column name
-        var label = document.createElement("label");
-        label.className = "form-check-label";
-        label.setAttribute("for", column[3]);
-        label.innerHTML = column[3];
-        // add the input and label elements as children of the wrapper
-        formCheck.appendChild(input);
-        formCheck.appendChild(label);
-    }
+//     var options = ["option1", "option2"];
+//     var option = ""
+//     for (option of options) {
+//         newSelect.innerHTML = "<option value='" + option + "'>" + option + "</option>";
+//     }
 
-}
+// }
