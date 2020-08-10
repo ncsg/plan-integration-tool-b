@@ -161,7 +161,7 @@ function db_request() {
     // to the queryDiv
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
-        columnsElement.innerHTML = "<p>Oops! Looks like something went wrong.</p>";
+        columnsElement.innerHTML = "<p><strong>Oops! Looks like something went wrong.</strong><br>You probably aren't connected to the database. Please contact us for help: cchiment@terpmail.umd.edu</p>";
     })
 
     // send the request to postgres
