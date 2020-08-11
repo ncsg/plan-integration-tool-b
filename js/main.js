@@ -146,6 +146,7 @@ function db_request() {
             input.id = column[3]
             input.setAttribute("type", "radio");
             input.setAttribute("value", column[3]);
+            input.setAttribute("name", "columnRadios"); // radios must share the same name attribute to only select one
             // create a label element and set the correct attributes based on the column name
             var label = document.createElement("label");
             label.className = "form-check-label";
@@ -155,6 +156,10 @@ function db_request() {
             formCheck.appendChild(input);
             formCheck.appendChild(label);
         }
+
+
+
+
     })
 
     // if the request is unsuccessful, print error text to console, and an error message
