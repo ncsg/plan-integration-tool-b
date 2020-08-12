@@ -55,3 +55,7 @@ a {
 #logo {
     height: 50px;
 }
+
+.customPopup .leaflet-popup-content-wrapper {
+    font-size: 14px;
+}

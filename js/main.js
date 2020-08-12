@@ -39,17 +39,28 @@ var geojsonMarkerOptions = {
     fillOpacity: 1
 };
 
+
+
+// function binds popup to feature
+function onEachFeature(feature, layer) {
+    if (feature.properties && feature.properties.ST_NAME) {
+        // add dynamic content and create a class name for styling
+        layer.bindPopup("<strong>Station:</strong> " + feature.properties.ST_NAME, { className: "customPopup" });
+    }
+}
+
+
+// drawing order matters!
+// add purple line and corridor boundary to map
+L.geoJSON(corridorFeature, { style: style }).addTo(mymap);
+L.geoJSON(purpleLine, { style: style, onEachFeature: onEachFeature }).addTo(mymap);
 // add purple line stations to map
 L.geoJson(purpleLineStations, {
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
-    }
+    },
+    onEachFeature: onEachFeature // bind the popup to each feature after it gets created
 }).addTo(mymap);
-
-
-// add purple line and corridor boundary to map
-L.geoJSON(purpleLine, { style: style }).addTo(mymap);
-L.geoJSON(corridorFeature, { style: style }).addTo(mymap);
 
 
 // function to toggle between the query and insert forms
