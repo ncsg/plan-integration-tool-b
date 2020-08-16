@@ -4,7 +4,7 @@
 $host = "localhost"; 
 $port = 5432;
 $user = "postgres"; // user account name
-$pwd = "XXXXXX"; // user password: ALWAYS OBSCURE THIS BEFORE PUSHING TO GITHUB
+$pwd = "XXXXX"; // user password: ALWAYS OBSCURE THIS BEFORE PUSHING TO GITHUB
 $db = "sop"; // database name
 
 $conn_string = "host=$host port=$port dbname=$db user=$user password=$pwd"; // parameter format for pg_connect
