@@ -3,11 +3,8 @@ var mymap = L.map('map', {
     zoomControl: false
 }).setView([38.9698612, -77.0876517], 12);
 
-
 // display the coordinate system code on the console
 console.log("map crs: " + mymap.options.crs.code);
-
-
 
 // add tile layer with OSM tiles: https://switch2osm.org/using-tiles/getting-started-with-leaflet/
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,7 +12,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(mymap);
 
-
+// Creating Feature group
+// source: https://leafletjs.com/examples/layers-control/
+var purpleGroup = L.featureGroup();
 
 // style geojson features
 function style(feature) {
@@ -35,7 +34,6 @@ function style(feature) {
     }
 }
 
-
 // style geojson marker features
 var geojsonMarkerOptions = {
     radius: 6,
@@ -46,7 +44,6 @@ var geojsonMarkerOptions = {
     fillOpacity: 1
 };
 
-
 // function binds popup to feature
 function onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.ST_NAME) {
@@ -55,19 +52,24 @@ function onEachFeature(feature, layer) {
     }
 }
 
-
 // drawing order matters!
 // add purple line and corridor boundary to map
-L.geoJSON(corridorFeature, { style: style }).addTo(mymap);
-L.geoJSON(purpleLine, { style: style, onEachFeature: onEachFeature }).addTo(mymap);
-// add purple line stations to map
-L.geoJson(purpleLineStations, {
+var corridor = L.geoJSON(corridorFeature, { style: style })
+var row = L.geoJSON(purpleLine, { style: style, onEachFeature: onEachFeature })
+    // add purple line stations to map
+var stations = L.geoJson(purpleLineStations, {
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
     },
     onEachFeature: onEachFeature // bind the popup to each feature after it gets created
-}).addTo(mymap);
+})
 
+//Add layers to FeatureGroup
+purpleGroup.addLayer(corridor);
+purpleGroup.addLayer(row);
+purpleGroup.addLayer(stations);
+// Adding Feature group to map
+purpleGroup.addTo(mymap);
 
 // function to toggle between the query and insert forms
 // could this be done more concisely with a for loop?
@@ -96,7 +98,6 @@ function toggleFunction() {
         displayQuery.removeAttribute("active");
     };
 
-
     if (displayQuery.checked) {
         // set the form div display property
         queryDiv.style.display = "block";
@@ -117,11 +118,8 @@ function toggleFunction() {
         displayAnalysis.setAttribute("active", "active");
         displayQuery.removeAttribute("active");
         displayIntro.removeAttribute("active");
-
     };
-
 }
-
 
 // when a user changes the table name in the select list, this function sends a request
 // to the database to get the column names for the selected table and display them as
@@ -174,7 +172,6 @@ function columnRequest() {
             formCheck.appendChild(input);
             formCheck.appendChild(label);
         }
-
     })
 
     // if the request is unsuccessful, print error text to console, and an error message
@@ -197,7 +194,6 @@ function valuesRequest() {
     // clear the columns from the previous table selection
     valuesElement = document.getElementById("values");
     valuesElement.innerHTML = '<option value="select">Select a value after picking a column</option>';
-
 
     // create the XMLHttpRequest object
     var xhttp = new XMLHttpRequest();
@@ -227,7 +223,6 @@ function valuesRequest() {
             // add the input and label elements as children of the wrapper
             valuesElement.appendChild(option);
         }
-
     })
 
     // if the request is unsuccessful, print error text to console
@@ -240,8 +235,12 @@ function valuesRequest() {
     xhttp.send(formData);
 }
 
-
+// when the form is submitted, execute the queryRequest function
 document.getElementById("form").onsubmit = queryRequest;
+
+// Creating Feature group for the new data layer
+var requestGroup = L.featureGroup();
+var overlay; // initializing the variable for the individual layer
 
 function queryRequest(event) {
 
@@ -258,19 +257,47 @@ function queryRequest(event) {
     xhttp.addEventListener("load", function(event) {
 
         console.log("Response text: " + event.target.responseText);
-        var results = JSON.parse(event.target.responseText);
+        var results = JSON.parse(event.target.responseText); // turn the response from string into json object
         console.log(results);
 
+        overlay = L.geoJSON(results, {
+            onEachFeature: function(feature, layer) {
+                // source: https://gis.stackexchange.com/questions/329499/add-popup-with-geojson-data
+                var popupContent = '';
+                for (var key in feature.properties) {
+                    if (key !== 'url') {
+                        popupContent = popupContent + '<strong>' + key + ':</strong>  ' + feature.properties[key] + '</br>';
+                    } else {
+                        popupContent = popupContent + '<strong>' + key + ':</strong>  ' + '<a href="' + feature.properties[key] + '" target="blank">View link</a></br>';
+                    }
+                }
+                layer.bindPopup(popupContent, { className: "customPopup" });
+            }
+        });
+        //Add layer to FeatureGroup
+        requestGroup.addLayer(overlay);
     })
 
     // if the request is unsuccessful, print error text to console
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
+        alert("There was an error: " + event.target.responseText);
     })
 
     // send the request to postgres
-    xhttp.open("POST", "http://localhost:8080/geog657-final/php/query.php", true);
+    xhttp.open("POST", "./php/query.php", true);
     xhttp.send(formData);
+}
+
+// Adding Feature group to map
+requestGroup.addTo(mymap);
+
+// when the user clicks the Clear Data button, reload the window
+function clearData() {
+    // remove a layer from FeatureGroup
+    // requestGroup.removeLayers(overlay); // is not working; the data just reloads as soon as it clears
+    // source: https://www.w3schools.com/jsref/met_loc_reload.asp
+    location.reload();
 }
 
 
@@ -299,5 +326,4 @@ function queryRequest(event) {
 //     for (option of options) {
 //         newSelect.innerHTML = "<option value='" + option + "'>" + option + "</option>";
 //     }
-
 // }

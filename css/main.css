@@ -56,6 +56,12 @@ a {
     height: 50px;
 }
 
+#logo2 {
+    height: 300px;
+    float: left;
+}
+
 .customPopup .leaflet-popup-content-wrapper {
     font-size: 14px;
+    overflow-x: auto;
 }
