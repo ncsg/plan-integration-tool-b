@@ -54,15 +54,15 @@ function onEachFeature(feature, layer) {
 
 // drawing order matters!
 // add purple line and corridor boundary to map
-var corridor = L.geoJSON(corridorFeature, { style: style })
-var row = L.geoJSON(purpleLine, { style: style, onEachFeature: onEachFeature })
-    // add purple line stations to map
+var corridor = L.geoJSON(corridorFeature, { style: style });
+var row = L.geoJSON(purpleLine, { style: style, onEachFeature: onEachFeature });
+// add purple line stations to map
 var stations = L.geoJson(purpleLineStations, {
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
     },
     onEachFeature: onEachFeature // bind the popup to each feature after it gets created
-})
+});
 
 //Add layers to FeatureGroup
 purpleGroup.addLayer(corridor);
@@ -96,7 +96,7 @@ function toggleFunction() {
         displayIntro.setAttribute("active", "active");
         displayAnalysis.removeAttribute("active");
         displayQuery.removeAttribute("active");
-    };
+    }
 
     if (displayQuery.checked) {
         // set the form div display property
@@ -107,7 +107,7 @@ function toggleFunction() {
         displayQuery.setAttribute("active", "active");
         displayAnalysis.removeAttribute("active");
         displayIntro.removeAttribute("active");
-    };
+    }
 
     if (displayAnalysis.checked) {
         // set the form div display property
@@ -118,7 +118,7 @@ function toggleFunction() {
         displayAnalysis.setAttribute("active", "active");
         displayQuery.removeAttribute("active");
         displayIntro.removeAttribute("active");
-    };
+    }
 }
 
 // when a user changes the table name in the select list, this function sends a request
@@ -158,7 +158,7 @@ function columnRequest() {
             // create an input element and set the correct attributes based on the column name
             var input = document.createElement("input");
             input.className = "form-check-input";
-            input.id = column[3]
+            input.id = column[3];
             input.setAttribute("type", "radio");
             input.setAttribute("value", column[3]);
             input.setAttribute("name", "columnRadios"); // radios must share the same name attribute to only select one
@@ -172,14 +172,14 @@ function columnRequest() {
             formCheck.appendChild(input);
             formCheck.appendChild(label);
         }
-    })
+    });
 
     // if the request is unsuccessful, print error text to console, and an error message
     // to the queryDiv
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
         columnsElement.innerHTML = "<p><strong>Oops! Looks like something went wrong.</strong><br>You probably aren't connected to the database. Please contact us for help: cchiment@terpmail.umd.edu</p>";
-    })
+    });
 
     // send the request to postgres
     xhttp.open("POST", "./php/columns.php");
@@ -223,12 +223,12 @@ function valuesRequest() {
             // add the input and label elements as children of the wrapper
             valuesElement.appendChild(option);
         }
-    })
+    });
 
     // if the request is unsuccessful, print error text to console
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
-    })
+    });
 
     // send the request to postgres
     xhttp.open("POST", "./php/values.php");
@@ -258,6 +258,7 @@ function queryRequest(event) {
 
         console.log("Response text: " + event.target.responseText);
         var results = JSON.parse(event.target.responseText); // turn the response from string into json object
+
         console.log(results);
 
         overlay = L.geoJSON(results, {
@@ -276,21 +277,23 @@ function queryRequest(event) {
         });
         //Add layer to FeatureGroup
         requestGroup.addLayer(overlay);
-    })
+    });
 
     // if the request is unsuccessful, print error text to console
     xhttp.addEventListener("error", function(event) {
         console.log("Error text: " + event.target.responseText);
         alert("There was an error: " + event.target.responseText);
-    })
+    });
 
     // send the request to postgres
     xhttp.open("POST", "./php/query.php", true);
     xhttp.send(formData);
 }
 
+
 // Adding Feature group to map
 requestGroup.addTo(mymap);
+
 
 // when the user clicks the Clear Data button, reload the window
 function clearData() {

@@ -19,7 +19,11 @@ $value = $_POST["values"];
 // ST_AsGeoJson converts geom column to geojson format up to 5 decimal places
 // source: https://www.youtube.com/watch?v=6HW7qenp-Yg
 // source: https://gis.stackexchange.com/questions/185201/st-transform-doesnt-work-in-postgresql/185202
+
 $full_query = "SELECT *, ST_AsGeoJSON(ST_Transform(ST_SetSRID(geom, 2248), 4326), 6) AS geojson FROM $table WHERE $column $operator '$value'";
+
+// $full_query = "SELECT *, ST_AsGeoJSON(CAST(geom as geometry), 6) AS geojson FROM cchiment.$table WHERE $column $operator '$value'";
+
 
 // send the query to the database
 $result = pg_query($connection, $full_query); // DOES NOT RETURN AN ARRAY

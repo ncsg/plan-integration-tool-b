@@ -11,7 +11,10 @@ $column = $_POST["columnRadios"]; // the 'name' attribute from the form gets the
 
 // query statement to get the unique values in the column and table specified by the user
 // source: https://stackoverflow.com/questions/5391564/how-to-use-distinct-and-order-by-in-same-select-statement
+
 $query_values = "SELECT DISTINCT $column FROM $table GROUP BY $column ORDER BY $column ASC";
+
+// $query_values = "SELECT DISTINCT $column FROM cchiment.$table GROUP BY $column ORDER BY $column ASC";
 
 // send the query to the database
 $result = pg_query($connection, $query_values);
