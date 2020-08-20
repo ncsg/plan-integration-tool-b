@@ -121,6 +121,9 @@ function toggleFunction() {
     }
 }
 
+var server = 'https://geogws003.ad.umd.edu:8443/657/cchiment/geog657-final/';
+// var server = 'http://localhost:8080/geog657-final/';
+
 // when a user changes the table name in the select list, this function sends a request
 // to the database to get the column names for the selected table and display them as
 // checkboxes in the queryDiv
@@ -182,7 +185,7 @@ function columnRequest() {
     });
 
     // send the request to postgres
-    xhttp.open("POST", "./php/columns.php");
+    xhttp.open("POST", server + "/php/columns.php");
     xhttp.send(formData);
 }
 
@@ -231,7 +234,7 @@ function valuesRequest() {
     });
 
     // send the request to postgres
-    xhttp.open("POST", "./php/values.php");
+    xhttp.open("POST", server + "/php/values.php");
     xhttp.send(formData);
 }
 
@@ -286,7 +289,7 @@ function queryRequest(event) {
     });
 
     // send the request to postgres
-    xhttp.open("POST", "./php/query.php", true);
+    xhttp.open("POST", server + "/php/query.php", true);
     xhttp.send(formData);
 }
 

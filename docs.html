@@ -54,7 +54,7 @@
         </div>
     </nav>
 
-    <div id="content" class="container-fluid bg-light text-dark">
+    <div id="content" class="container-fluid text-dark">
 
         <div class="row">
             <div class="col-10 offset-1 mt-4">
@@ -79,223 +79,219 @@
                 <p>
                     Below is information about the data contained in the database behind the Plan Integration Tool. IDs and geometry fields are excluded.
                 </p>
+            </div>
+        </div>
 
-                <h4>
+        <div class="row">
+            <div class="col-7 offset-1 mt-4">
+                <h4 class="my-2">
                     Land Use Plans
                 </h4>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pln_title</td>
+                            <td>The title of the plan.</td>
+                        </tr>
+                        <tr>
+                            <td>pln_typ</td>
+                            <td>The category of the plan.</td>
+                        </tr>
+                        <tr>
+                            <td>auth</td>
+                            <td>The authority, such as an agency or organization, who created the plan.</td>
+                        </tr>
+                        <tr>
+                            <td>cnty</td>
+                            <td>The county location of the plan's boundary.</td>
+                        </tr>
+                        <tr>
+                            <td>pln_ar</td>
+                            <td>The jurisdiction name which the plan administers.</td>
+                        </tr>
+                        <tr>
+                            <td>pln_yr</td>
+                            <td>The year the plan was created.</td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>The URL location of a PDF file of the plan.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-8 mt-4">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Attribute</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>pln_title</td>
-                                    <td>The title of the plan.</td>
-                                </tr>
-                                <tr>
-                                    <td>pln_typ</td>
-                                    <td>The category of the plan.</td>
-                                </tr>
-                                <tr>
-                                    <td>auth</td>
-                                    <td>The authority, such as an agency or organization, who created the plan.</td>
-                                </tr>
-                                <tr>
-                                    <td>cnty</td>
-                                    <td>The county location of the plan's boundary.</td>
-                                </tr>
-                                <tr>
-                                    <td>pln_ar</td>
-                                    <td>The jurisdiction name which the plan administers.</td>
-                                </tr>
-                                <tr>
-                                    <td>pln_yr</td>
-                                    <td>The year the plan was created.</td>
-                                </tr>
-                                <tr>
-                                    <td>url</td>
-                                    <td>The URL location of a PDF file of the plan.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <h4>
+        <div class="row">
+            <div class="col-7 offset-1 mt-4">
+                <h4 class="my-2">
                     Montgomery County Bus Stops
                 </h4>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>stop_name</td>
+                            <td>The agency name of the stop, often the closest intersection cross-streets.</td>
+                        </tr>
+                        <tr>
+                            <td>town</td>
+                            <td>The jurisdiction in which the stop is located.</td>
+                        </tr>
+                        <tr>
+                            <td>stop_code</td>
+                            <td>The agency code for the stop.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-8 mt-4">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Attribute</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>stop_name</td>
-                                    <td>The agency name of the stop, often the closest intersection cross-streets.</td>
-                                </tr>
-                                <tr>
-                                    <td>town</td>
-                                    <td>The jurisdiction in which the stop is located.</td>
-                                </tr>
-                                <tr>
-                                    <td>stop_code</td>
-                                    <td>The agency code for the stop.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <h4>
+        <div class="row">
+            <div class="col-7 offset-1 my-4">
+                <h4 class="my-2">
                     Prince George's County Bus Stops
                 </h4>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>variance</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>shelter</td>
+                            <td>Denotes the existence of a bus shelter at the stop location.</td>
+                        </tr>
+                        <tr>
+                            <td>receptacle</td>
+                            <td>Denotes the existence of a waste receptacle at the stop location.</td>
+                        </tr>
+                        <tr>
+                            <td>tmpt_suit</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>unsf_loc</td>
+                            <td>Denotes that the bus stop is in an unsafe location. Criteria unknown.</td>
+                        </tr>
+                        <tr>
+                            <td>shrd_stp</td>
+                            <td>Provides identifiers for other transit lines with which the stop is shared.</td>
+                        </tr>
+                        <tr>
+                            <td>comments</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>route</td>
+                            <td>The agency route designation.</td>
+                        </tr>
+                        <tr>
+                            <td>wmata</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>thebus</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>notes</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>route_numb</td>
+                            <td>The agency route designation.</td>
+                        </tr>
+                        <tr>
+                            <td>stop_numbe</td>
+                            <td>The agency stop number designation within the route.</td>
+                        </tr>
+                        <tr>
+                            <td>street_nam</td>
+                            <td>The name of the street on which the stop is located.</td>
+                        </tr>
+                        <tr>
+                            <td>street_int</td>
+                            <td>The closest intersection to the stop.</td>
+                        </tr>
+                        <tr>
+                            <td>bus_direct</td>
+                            <td>The cardinal direction of the bus when it visits the stop.</td>
+                        </tr>
+                        <tr>
+                            <td>location</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-8 my-4">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Attribute</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>variance</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>shelter</td>
-                                    <td>Denotes the existence of a bus shelter at the stop location.</td>
-                                </tr>
-                                <tr>
-                                    <td>receptacle</td>
-                                    <td>Denotes the existence of a waste receptacle at the stop location.</td>
-                                </tr>
-                                <tr>
-                                    <td>tmpt_suit</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>unsf_loc</td>
-                                    <td>Denotes that the bus stop is in an unsafe location. Criteria unknown.</td>
-                                </tr>
-                                <tr>
-                                    <td>shrd_stp</td>
-                                    <td>Provides identifiers for other transit lines with which the stop is shared.</td>
-                                </tr>
-                                <tr>
-                                    <td>comments</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>route</td>
-                                    <td>The agency route designation.</td>
-                                </tr>
-                                <tr>
-                                    <td>wmata</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>thebus</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>notes</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>name</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>route_numb</td>
-                                    <td>The agency route designation.</td>
-                                </tr>
-                                <tr>
-                                    <td>stop_numbe</td>
-                                    <td>The agency stop number designation within the route.</td>
-                                </tr>
-                                <tr>
-                                    <td>street_nam</td>
-                                    <td>The name of the street on which the stop is located.</td>
-                                </tr>
-                                <tr>
-                                    <td>street_int</td>
-                                    <td>The closest intersection to the stop.</td>
-                                </tr>
-                                <tr>
-                                    <td>bus_direct</td>
-                                    <td>The cardinal direction of the bus when it visits the stop.</td>
-                                </tr>
-                                <tr>
-                                    <td>location</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <h4>
+        <div class="row">
+            <div class="col-7 offset-1 my-4">
+                <h4 class="my-2">
                     WMATA Metro Lines
                 </h4>
-
-                <div class="row">
-                    <div class="col-8 my-4">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Attribute</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>line</td>
-                                    <td>The name of the metro line.</td>
-                                </tr>
-                                <tr>
-                                    <td>year</td>
-                                    <td>The year the metro line opened.</td>
-                                </tr>
-                                <tr>
-                                    <td>from_</td>
-                                    <td>The name of the stop from which trains on the segment are leaving.</td>
-                                </tr>
-                                <tr>
-                                    <td>to_</td>
-                                    <td>The name of the stop to which trains on the segment are moving towards.</td>
-                                </tr>
-                                <tr>
-                                    <td>display</td>
-                                    <td>The display name of the metro line.</td>
-                                </tr>
-                                <tr>
-                                    <td>anode</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>bnode</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>line</td>
+                            <td>The name of the metro line.</td>
+                        </tr>
+                        <tr>
+                            <td>year</td>
+                            <td>The year the metro line opened.</td>
+                        </tr>
+                        <tr>
+                            <td>from_</td>
+                            <td>The name of the stop from which trains on the segment are leaving.</td>
+                        </tr>
+                        <tr>
+                            <td>to_</td>
+                            <td>The name of the stop to which trains on the segment are moving towards.</td>
+                        </tr>
+                        <tr>
+                            <td>display</td>
+                            <td>The display name of the metro line.</td>
+                        </tr>
+                        <tr>
+                            <td>anode</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>bnode</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
