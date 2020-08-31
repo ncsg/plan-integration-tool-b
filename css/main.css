@@ -1,8 +1,38 @@
 html,
 body {
     height: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
+}
+
+#content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 100% !important;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 8%;
+    width: 100%;
+    text-align: right;
+}
+
+ol.breadcrumb {
+    background-color: rgba(128, 0, 128, 0.1);
+}
+
+.jumbotron {
+    background-color: rgba(128, 0, 128, 0.1);
+}
+
+a {
+    color: #800080;
 }
 
 #map {
@@ -16,16 +46,21 @@ body {
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 95%;
+    height: 85%;
     border-radius: 4px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     overflow: auto;
 }
 
-a {
-    color: #800080;
+#logo {
+    height: 50px;
 }
 
-#logo {
-    height: 75px;
+#logo2 {
+    height: 200px !important;
+}
+
+.customPopup .leaflet-popup-content-wrapper {
+    font-size: 14px;
+    overflow-x: auto;
 }

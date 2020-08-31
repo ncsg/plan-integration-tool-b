@@ -9,10 +9,10 @@ require_once "./connect.php";
 $table = $_POST["table"]; // the 'name' attribute from the form gets the selected value
 
 // query statement to get the names of the columns from the table specified by the user
-$query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table'";
+$query_columns = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$table'";
 
 // send the query to the database
-$result = pg_query($connection, $query);
+$result = pg_query($connection, $query_columns);
 
 // if there is no result, print error message and exit
 if(!$result) {
